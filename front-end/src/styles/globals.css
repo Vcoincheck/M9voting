@@ -1,0 +1,393 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 14px;
+  
+  /* Original theme variables */
+  --background: #ffffff;
+  --foreground: oklch(0.145 0 0);
+  --card: #ffffff;
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: #030213;
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.0058 264.53);
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #e9ebef;
+  --accent-foreground: #030213;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #f3f3f5;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: #030213;
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* DAO App specific theme variables */
+  --dao-background: #F8F9FA;
+  --dao-background-gradient: 
+    linear-gradient(135deg, #F8F9FA 0%, #E3E7FC 50%, #F0F4FF 100%),
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(109, 40, 217, 0.05) 0%, transparent 50%);
+  --dao-foreground: #212529;
+  --dao-card: #ffffff;
+  --dao-card-secondary: #ffffff;
+  --dao-accent-blue: #3B82F6;
+  --dao-accent-purple: #6D28D9;
+  --dao-border: rgba(33, 37, 41, 0.1);
+  --dao-shadow: rgba(0, 0, 0, 0.05);
+  --dao-success: #10B981;
+  --dao-warning: #F59E0B;
+  --dao-error: #EF4444;
+  --dao-radius: 1.5rem;
+}
+
+.dark {
+  /* Original dark theme variables - updated to darker range */
+  --background: oklch(0.05 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.08 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.05 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.05 0 0);
+  --secondary: oklch(0.12 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.12 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.12 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.12 0 0);
+  --input: oklch(0.12 0 0);
+  --ring: oklch(0.3 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.08 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.12 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.12 0 0);
+  --sidebar-ring: oklch(0.3 0 0);
+
+  /* DAO App dark theme variables */
+  --dao-background: #000000;
+  --dao-background-gradient: 
+    linear-gradient(135deg, #000000 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #000000 100%),
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(109, 40, 217, 0.08) 0%, transparent 50%);
+  --dao-foreground: #FFFFFF;
+  --dao-card: rgba(20, 20, 20, 0.9);
+  --dao-card-secondary: rgba(15, 15, 15, 0.8);
+  --dao-accent-blue: #3B82F6;
+  --dao-accent-purple: #6D28D9;
+  --dao-border: rgba(255, 255, 255, 0.08);
+  --dao-shadow: rgba(0, 0, 0, 0.5);
+  --dao-success: #10B981;
+  --dao-warning: #F59E0B;
+  --dao-error: #EF4444;
+  --dao-radius: 1.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* DAO App theme colors */
+  --color-dao-background: var(--dao-background);
+  --color-dao-background-gradient: var(--dao-background-gradient);
+  --color-dao-foreground: var(--dao-foreground);
+  --color-dao-card: var(--dao-card);
+  --color-dao-card-secondary: var(--dao-card-secondary);
+  --color-dao-accent-blue: var(--dao-accent-blue);
+  --color-dao-accent-purple: var(--dao-accent-purple);
+  --color-dao-border: var(--dao-border);
+  --color-dao-shadow: var(--dao-shadow);
+  --color-dao-success: var(--dao-success);
+  --color-dao-warning: var(--dao-warning);
+  --color-dao-error: var(--dao-error);
+  --radius-dao: var(--dao-radius);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    /* Dark theme is handled by ThemeProvider */
+  }
+
+  body {
+    @apply transition-all duration-300 ease-in-out;
+    background: var(--dao-background-gradient);
+    background-attachment: fixed;
+    color: var(--dao-foreground);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Mobile optimization for gradient */
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+    }
+  }
+}
+
+/**
+ * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h4 {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    p {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    input {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* DAO App specific utility classes */
+.dao-card {
+  background: var(--dao-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--dao-border);
+  box-shadow: 0 4px 6px -1px var(--dao-shadow), 
+              0 0 0 1px rgba(255, 255, 255, 0.05);
+  border-radius: var(--dao-radius);
+  transition: all 0.3s ease-in-out;
+}
+
+.dao-card:hover {
+  box-shadow: 0 10px 15px -3px var(--dao-shadow),
+              0 20px 25px -5px var(--dao-shadow),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.dark .dao-card {
+  box-shadow: 0 4px 6px -1px var(--dao-shadow), 
+              0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.dark .dao-card:hover {
+  box-shadow: 0 10px 15px -3px var(--dao-shadow),
+              0 20px 25px -5px var(--dao-shadow),
+              0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.dao-gradient-blue {
+  background: linear-gradient(135deg, var(--dao-accent-blue), var(--dao-accent-purple));
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.dao-text-gradient {
+  background: linear-gradient(135deg, var(--dao-accent-blue), var(--dao-accent-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Background gradient utility classes */
+.dao-background-gradient {
+  background: var(--dao-background-gradient);
+  background-attachment: fixed;
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Glass morphism effect for cards */
+.dao-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .dao-glass {
+  background: rgba(10, 10, 10, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Dark theme specific improvements */
+.dark {
+  /* Improved text readability in dark theme */
+  color-scheme: dark;
+}
+
+.dark .dao-text-gradient {
+  /* Enhanced gradient visibility in dark theme */
+  background: linear-gradient(135deg, #60A5FA, #A78BFA);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .dao-gradient-blue {
+  /* Enhanced button gradients for dark theme */
+  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 767px) {
+  /* Mobile content padding adjustments */
+  .mobile-content-wrapper {
+    padding-top: 1rem;
+    padding-left: 4rem;
+    padding-right: 1rem;
+  }
+  
+  /* Ensure proper touch targets on mobile */
+  button {
+    min-height: 44px;
+  }
+  
+  /* Mobile-optimized card layouts */
+  .dao-card {
+    margin-bottom: 1rem;
+  }
+  
+  /* Responsive grid improvements */
+  .grid {
+    gap: 1rem;
+  }
+  
+  /* Mobile sidebar overlay animation */
+  .mobile-sidebar-overlay {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Improved mobile typography */
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+}
