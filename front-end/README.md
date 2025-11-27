@@ -8,8 +8,8 @@ A privacy-focused DAO governance platform with zero-knowledge proof support. Bui
 
 ```bash
 # Clone repository
-git clone <repository-url>
-cd hello
+git clone https://github.com/Vcoincheck/M9voting
+cd M9voting
 
 # Install dependencies and run
 npm install
