@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Search, Filter, Users, Clock, Grid3X3, List, Plus, Lock } from 'lucide-react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Badge } from './ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { useDAO } from './DAOProvider';
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Badge } from '../../components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
+import { useDAO } from '../../components/DAOProvider';
+import { useAppNavigation } from '../../hooks';
 
-interface ProposalListScreenProps {
-  onBack: () => void;
-  onViewProposal: (id: string) => void;
-  onCreateProposal?: () => void;
-}
-
-export function ProposalListScreen({ onBack, onViewProposal, onCreateProposal }: ProposalListScreenProps) {
+export function ProposalListPage() {
+  const nav = useAppNavigation();
   const { proposals, isGuestMode } = useDAO();
   // Debug: log proposals ids
   React.useEffect(() => {
@@ -82,7 +78,7 @@ export function ProposalListScreen({ onBack, onViewProposal, onCreateProposal }:
           <Button
             variant="outline"
             size="icon"
-            onClick={onBack}
+            onClick={() => nav.goBack()}
             className="rounded-xl"
             style={{
               borderColor: 'var(--dao-border)',
@@ -108,7 +104,7 @@ export function ProposalListScreen({ onBack, onViewProposal, onCreateProposal }:
           {/* New Proposal Button - Hidden in guest mode */}
           {!isGuestMode && (
             <Button
-              onClick={onCreateProposal}
+              onClick={() => nav.toCreateProposal()}
               className="rounded-xl dao-gradient-blue text-white border-0"
             >
               <Plus className="w-4 h-4 mr-2" />
@@ -248,7 +244,7 @@ export function ProposalListScreen({ onBack, onViewProposal, onCreateProposal }:
               onClick={() => {
                 // eslint-disable-next-line no-console
                 console.log('Clicked proposal id:', proposal.id);
-                onViewProposal(proposal.id);
+                nav.toProposalDetails(proposal.id);
               }}
             >
               {/* Header */}
@@ -346,7 +342,7 @@ export function ProposalListScreen({ onBack, onViewProposal, onCreateProposal }:
             <div
               key={proposal.id}
               className="dao-card p-6 cursor-pointer transition-all duration-300"
-              onClick={() => onViewProposal(proposal.id)}
+              onClick={() => nav.toProposalDetails(proposal.id)}
             >
               <div className="flex items-start justify-between">
                 {/* Left Section */}

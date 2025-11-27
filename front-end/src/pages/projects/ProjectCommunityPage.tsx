@@ -1,14 +1,15 @@
 ﻿import React, { useState } from 'react';
 import { ArrowLeft, Plus, Search, Filter, Users, Lock, Globe, Calendar, Vote, Eye } from 'lucide-react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Badge } from './ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { useDAO } from './DAOProvider';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Badge } from '../../components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
+import { useDAO } from '../../components/DAOProvider';
+import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import { toast } from 'sonner@2.0.3';
-import vietCardanoLogo from '../assets/f9fb9d7e6a371661d7790f3c05ed29936615536c.png';
-import vtechcomLogo from '../assets/19e3ee003cfb6111a0a470c6e8c25bdf3d23526d.png';
+import vietCardanoLogo from '../../assets/f9fb9d7e6a371661d7790f3c05ed29936615536c.png';
+import vtechcomLogo from '../../assets/19e3ee003cfb6111a0a470c6e8c25bdf3d23526d.png';
+import { useAppNavigation } from '../../hooks';
 
 interface Project {
   id: string;
@@ -22,12 +23,6 @@ interface Project {
   createdAt: string;
   creator: string;
   hasDetailedInfo: boolean;
-}
-
-interface ProjectCommunityScreenProps {
-  onBack: () => void;
-  onViewProject: (projectId: string) => void;
-  onCreateProject?: () => void;
 }
 
 const mockProjects: Project[] = [
@@ -342,7 +337,8 @@ const getCategoryIcon = (category: string) => {
   }
 };
 
-export function ProjectCommunityScreen({ onBack, onViewProject, onCreateProject }: ProjectCommunityScreenProps) {
+export function ProjectCommunityPage() {
+  const nav = useAppNavigation();
   const { isGuestMode, tempProjects } = useDAO();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -386,7 +382,7 @@ export function ProjectCommunityScreen({ onBack, onViewProject, onCreateProject 
           <div className="flex items-center space-x-4">
             <Button
               variant="ghost"
-              onClick={onBack}
+              onClick={() => nav.goBack()}
               className="p-2 rounded-xl"
               style={{ color: 'var(--dao-foreground)' }}
             >
@@ -400,15 +396,13 @@ export function ProjectCommunityScreen({ onBack, onViewProject, onCreateProject 
             </div>
           </div>
           
-          {onCreateProject && (
-            <Button
-              onClick={onCreateProject}
-              className="rounded-xl dao-gradient-blue text-white border-0"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Create New Project
-            </Button>
-          )}
+          <Button
+            onClick={() => nav.toCreateProject()}
+            className="rounded-xl dao-gradient-blue text-white border-0"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Create New Project
+          </Button>
         </div>
 
         {/* New Projects Notification */}
@@ -486,10 +480,10 @@ export function ProjectCommunityScreen({ onBack, onViewProject, onCreateProject 
               } ${project.id.startsWith('temp_') ? 'ring-2 ring-blue-500 ring-opacity-30' : ''}`}
               onClick={() => {
                 if (project.hasDetailedInfo) {
-                  onViewProject(project.id);
+                  nav.toProjectDetails(project.id);
                 } else if (project.id.startsWith('temp_')) {
                   // Allow viewing temporary project details
-                  onViewProject(project.id);
+                  nav.toProjectDetails(project.id);
                 } else {
                   toast.info('This project doesn\'t have detailed information available yet.');
                 }
@@ -625,15 +619,13 @@ export function ProjectCommunityScreen({ onBack, onViewProject, onCreateProject 
             <p className="opacity-70 mb-6" style={{ color: 'var(--dao-foreground)' }}>
               Try adjusting your search criteria or create a new project.
             </p>
-            {onCreateProject && (
-              <Button
-                onClick={onCreateProject}
-                className="rounded-xl dao-gradient-blue text-white border-0"
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                Create New Project
-              </Button>
-            )}
+            <Button
+              onClick={() => nav.toCreateProject()}
+              className="rounded-xl dao-gradient-blue text-white border-0"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Create New Project
+            </Button>
           </div>
         )}
 

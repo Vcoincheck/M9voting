@@ -1,17 +1,15 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { Vote, Zap, ArrowRight, ExternalLink, Lock, Users, BarChart3 } from 'lucide-react';
-import { Button } from './ui/button';
-import { AppHeader } from './AppHeader';
-import { DemoNoticeModal } from './DemoNoticeModal';
+import { Button } from '../components/ui/button';
+import { AppHeader } from '../components/AppHeader';
+import { DemoNoticeModal } from '../components/DemoNoticeModal';
 import m9Logo from '../assets/f45b2fc73c3a8a5b34e9c23d1b875d47c63c77ca.png';
 
-import { FeedbackButton } from './FeedbackButton';
+import { FeedbackButton } from '../components/FeedbackButton';
+import { useAppNavigation } from '../hooks';
 
-interface LandingScreenProps {
-  onGoToApp: () => void;
-}
-
-export function LandingScreen({ onGoToApp }: LandingScreenProps) {
+export function LandingPage() {
+  const nav = useAppNavigation();
   const [showDemoModal, setShowDemoModal] = useState(false);
 
   useEffect(() => {
@@ -33,7 +31,7 @@ export function LandingScreen({ onGoToApp }: LandingScreenProps) {
 
   return (
     <div>
-      <AppHeader onNavigateToApp={onGoToApp} />
+      <AppHeader onNavigateToApp={() => nav.toDashboard()} />
   <main className="relative overflow-y-auto min-h-screen">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
@@ -63,7 +61,7 @@ export function LandingScreen({ onGoToApp }: LandingScreenProps) {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
 
               <Button
-                onClick={onGoToApp}
+                onClick={() => nav.toDashboard()}
                 size="lg"
                 className="text-lg px-12 py-6 rounded-2xl dao-gradient-blue text-white border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105"
               >
@@ -201,7 +199,7 @@ export function LandingScreen({ onGoToApp }: LandingScreenProps) {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
-                  onClick={onGoToApp}
+                  onClick={() => nav.toDashboard()}
                   size="lg"
                   className="text-lg px-10 py-4 rounded-2xl dao-gradient-blue text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300"
                 >

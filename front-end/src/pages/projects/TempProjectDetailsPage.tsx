@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Users, Vote, Eye, Calendar, Globe, Lock, ExternalLink, MessageCircle, Star, Share2, Bell, FileText, Coins } from 'lucide-react';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { useDAO } from './DAOProvider';
+import { Button } from '../../components/ui/button';
+import { Badge } from '../../components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
+import { useDAO } from '../../components/DAOProvider';
+import { useAppNavigation } from '../../hooks';
 
-interface TempProjectDetailsScreenProps {
-  projectId: string;
-  onBack: () => void;
-  onNavigate: (screen: string, proposalId?: string) => void;
-}
-
-export function TempProjectDetailsScreen({ projectId, onBack, onNavigate }: TempProjectDetailsScreenProps) {
+export function TempProjectDetailsPage() {
+  const nav = useAppNavigation();
   const { isGuestMode, tempProjects } = useDAO();
   const [activeTab, setActiveTab] = useState('overview');
   const [isFollowing, setIsFollowing] = useState(false);
@@ -27,7 +23,7 @@ export function TempProjectDetailsScreen({ projectId, onBack, onNavigate }: Temp
           <p className="opacity-70 mb-6" style={{ color: 'var(--dao-foreground)' }}>
             This temporary project is no longer available.
           </p>
-          <Button onClick={onBack} className="rounded-xl dao-gradient-blue text-white border-0">
+          <Button onClick={() => nav.goBack()} className="rounded-xl dao-gradient-blue text-white border-0">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Projects
           </Button>
@@ -68,7 +64,7 @@ export function TempProjectDetailsScreen({ projectId, onBack, onNavigate }: Temp
           <div className="flex items-center space-x-4">
             <Button
               variant="ghost"
-              onClick={onBack}
+              onClick={() => nav.goBack()}
               className="p-2 rounded-xl"
               style={{ color: 'var(--dao-foreground)' }}
             >

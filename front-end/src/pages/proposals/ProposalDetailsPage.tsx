@@ -1,18 +1,15 @@
 import React from 'react';
 import { ArrowLeft, Users, Clock, FileText, ExternalLink, Copy, CheckCircle } from 'lucide-react';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
-import { Progress } from './ui/progress';
-import { Separator } from './ui/separator';
-import { useDAO, Proposal } from './DAOProvider';
+import { Button } from '../../components/ui/button';
+import { Badge } from '../../components/ui/badge';
+import { Progress } from '../../components/ui/progress';
+import { Separator } from '../../components/ui/separator';
+import { useDAO, Proposal } from '../../components/DAOProvider';
 import { useParams } from 'react-router-dom';
+import { useAppNavigation } from '../../hooks';
 
-interface ProposalDetailsScreenProps {
-  onBack: () => void;
-  onVote: (proposalId: string) => void;
-}
-
-export function ProposalDetailsScreen({ onBack, onVote }: ProposalDetailsScreenProps) {
+export function ProposalDetailsPage() {
+  const nav = useAppNavigation();
   const { proposalId } = useParams();
   const { proposals, getProposal } = useDAO();
   const proposal = getProposal(proposalId || '');
@@ -29,7 +26,7 @@ export function ProposalDetailsScreen({ onBack, onVote }: ProposalDetailsScreenP
           <h2 className="text-2xl font-bold mb-4" style={{color: 'var(--dao-foreground)'}}>
             Proposal Not Found
           </h2>
-          <Button onClick={onBack} className="dao-gradient-blue text-white rounded-xl">
+          <Button onClick={() => nav.goBack()} className="dao-gradient-blue text-white rounded-xl">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
           </Button>
@@ -101,7 +98,7 @@ export function ProposalDetailsScreen({ onBack, onVote }: ProposalDetailsScreenP
         <Button
           variant="outline"
           size="icon"
-          onClick={onBack}
+          onClick={() => nav.goBack()}
           className="rounded-xl"
           style={{
             borderColor: 'var(--dao-border)',

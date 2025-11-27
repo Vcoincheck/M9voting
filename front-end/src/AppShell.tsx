@@ -8,15 +8,14 @@ import { AuthDialogs } from './components/AuthDialogs';
 interface AppShellProps {
   children: React.ReactNode;
   currentScreen?: string;
-  onNavigate?: (screen: string, proposalId?: string, projectId?: string) => void;
 }
 
-export function AppShell({ children, currentScreen, onNavigate }: AppShellProps) {
+export function AppShell({ children, currentScreen }: AppShellProps) {
   const { setShowWalletSelector, wallet } = useDAO();
 
   return (
     <div className="flex relative">
-      <AppSidebar currentScreen={currentScreen || ''} onNavigate={onNavigate || (() => {})} />
+      <AppSidebar currentScreen={currentScreen || ''} />
       <main className="flex-1 overflow-auto">
         <AppHeader
           showWalletConnect={!wallet}

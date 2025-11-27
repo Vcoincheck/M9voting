@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Copy, ExternalLink, CheckCircle, BarChart3, Users, TrendingUp, Calendar } from 'lucide-react';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
-import { Progress } from './ui/progress';
-import { Separator } from './ui/separator';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import { Button } from '../../components/ui/button';
+import { Badge } from '../../components/ui/badge';
+import { Progress } from '../../components/ui/progress';
+import { Separator } from '../../components/ui/separator';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../../components/ui/dialog';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { useDAO } from './DAOProvider';
+import { useDAO } from '../../components/DAOProvider';
 import { useParams } from 'react-router-dom';
+import { useAppNavigation } from '../../hooks';
 
-interface VotingResultsScreenProps {
-  onBack: () => void;
-}
-
-export function VotingResultsScreen({ onBack }: VotingResultsScreenProps) {
+export function VotingResultsPage() {
+  const nav = useAppNavigation();
   const { proposalId } = useParams();
   const { proposals } = useDAO();
   const proposal = proposals.find(p => p.id === (proposalId || ''));
@@ -65,7 +63,7 @@ export function VotingResultsScreen({ onBack }: VotingResultsScreenProps) {
         <Button
           variant="outline"
           size="icon"
-          onClick={onBack}
+          onClick={() => nav.goBack()}
           className="rounded-xl"
           style={{
             borderColor: 'var(--dao-border)',

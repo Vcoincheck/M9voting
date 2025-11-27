@@ -1,21 +1,17 @@
 ﻿import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ArrowLeft, Users, Vote, Eye, Calendar, Globe, Lock, ExternalLink, MessageCircle, Star, Share2, Bell, BarChart3, TrendingUp, Activity, FileText, Coins } from 'lucide-react';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Progress } from './ui/progress';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Button } from '../../components/ui/button';
+import { Badge } from '../../components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
+import { Progress } from '../../components/ui/progress';
+import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { useDAO } from './DAOProvider';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-import vietCardanoLogo from '../assets/f9fb9d7e6a371661d7790f3c05ed29936615536c.png';
-import vtechcomLogo from '../assets/19e3ee003cfb6111a0a470c6e8c25bdf3d23526d.png';
-
-interface ProjectDetailsScreenProps {
-  onBack: () => void;
-  onNavigate: (screen: string, proposalId?: string) => void;
-}
+import { useDAO } from '../../components/DAOProvider';
+import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
+import vietCardanoLogo from '../../assets/f9fb9d7e6a371661d7790f3c05ed29936615536c.png';
+import vtechcomLogo from '../../assets/19e3ee003cfb6111a0a470c6e8c25bdf3d23526d.png';
+import { useAppNavigation } from '../../hooks';
 
 // Mock activity data for analytics
 const generateActivityData = (memberCount: number) => {
@@ -473,7 +469,8 @@ const projectDetails = {
   }
 };
 
-export function ProjectDetailsScreen({ onBack, onNavigate }: ProjectDetailsScreenProps) {
+export function ProjectDetailsPage() {
+  const nav = useAppNavigation();
   const { projectId } = useParams();
   const { isGuestMode, tempProjects } = useDAO();
   const [activeTab, setActiveTab] = useState('overview');
@@ -507,7 +504,7 @@ export function ProjectDetailsScreen({ onBack, onNavigate }: ProjectDetailsScree
           <p className="opacity-70 mb-6" style={{ color: 'var(--dao-foreground)' }}>
             This project doesn't have detailed information available yet.
           </p>
-          <Button onClick={onBack} className="rounded-xl dao-gradient-blue text-white border-0">
+          <Button onClick={() => nav.goBack()} className="rounded-xl dao-gradient-blue text-white border-0">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Projects
           </Button>
@@ -548,7 +545,7 @@ export function ProjectDetailsScreen({ onBack, onNavigate }: ProjectDetailsScree
           <div className="flex items-center space-x-4">
             <Button
               variant="ghost"
-              onClick={onBack}
+              onClick={() => nav.goBack()}
               className="p-2 rounded-xl"
               style={{ color: 'var(--dao-foreground)' }}
             >

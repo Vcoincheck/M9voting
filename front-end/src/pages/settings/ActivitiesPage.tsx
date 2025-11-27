@@ -13,11 +13,12 @@ import {
   PieChart,
   Lock
 } from 'lucide-react';
-import { Button } from './ui/button';
-import { Card } from './ui/card';
-import { Badge } from './ui/badge';
-import { Separator } from './ui/separator';
-import { useDAO } from './DAOProvider';
+import { Button } from '../../components/ui/button';
+import { Card } from '../../components/ui/card';
+import { Badge } from '../../components/ui/badge';
+import { Separator } from '../../components/ui/separator';
+import { useDAO } from '../../components/DAOProvider';
+import { useAppNavigation } from '../../hooks';
 import { 
   PieChart as RechartsPieChart, 
   Pie,
@@ -31,11 +32,8 @@ import {
   Legend 
 } from 'recharts';
 
-interface ActivitiesScreenProps {
-  onBack: () => void;
-}
-
-export function ActivitiesScreen({ onBack }: ActivitiesScreenProps) {
+export function ActivitiesPage() {
+  const nav = useAppNavigation();
   const { wallet, isGuestMode, proposals } = useDAO();
   const [selectedTimeframe, setSelectedTimeframe] = useState<'week' | 'month' | 'quarter'>('month');
 
@@ -49,7 +47,7 @@ export function ActivitiesScreen({ onBack }: ActivitiesScreenProps) {
             <div className="flex items-center space-x-4">
               <Button 
                 variant="ghost" 
-                onClick={onBack}
+                onClick={() => nav.goBack()}
                 className="p-2 rounded-xl"
                 style={{color: 'var(--dao-foreground)'}}
               >
@@ -236,7 +234,7 @@ export function ActivitiesScreen({ onBack }: ActivitiesScreenProps) {
           <div className="flex items-center space-x-4">
             <Button 
               variant="ghost" 
-              onClick={onBack}
+              onClick={() => nav.goBack()}
               className="p-2 rounded-xl"
               style={{color: 'var(--dao-foreground)'}}
             >

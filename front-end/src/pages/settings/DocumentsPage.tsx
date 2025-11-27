@@ -1,14 +1,12 @@
 import React from 'react';
 import { ExternalLink, FileText, Book, Shield, Code, Users } from 'lucide-react';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { Badge } from '../../components/ui/badge';
+import { Button } from '../../components/ui/button';
+import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
+import { useAppNavigation } from '../../hooks';
 
-interface DocumentsScreenProps {
-  onBack: () => void;
-}
-
-export function DocumentsScreen({ onBack }: DocumentsScreenProps) {
+export function DocumentsPage() {
+  const nav = useAppNavigation();
   const documentSections = [
     {
       title: 'Technical Documentation',
@@ -245,7 +243,7 @@ export function DocumentsScreen({ onBack }: DocumentsScreenProps) {
           </div>
 
           <div
-            onClick={onBack}
+            onClick={() => nav.goBack()}
             className="rounded-xl p-4 h-auto justify-start cursor-pointer"
             style={{ border: '1px solid var(--dao-border)', color: 'var(--dao-foreground)' }}
           >

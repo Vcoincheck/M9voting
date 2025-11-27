@@ -1,24 +1,21 @@
 ﻿import React, { useState } from 'react';
 import { ArrowLeft, Save, AlertCircle, Users, Lock, Percent, FileText, Eye, Image, Upload, Coins, Vote, Code } from 'lucide-react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Switch } from './ui/switch';
-import { RadioGroup, RadioGroupItem } from './ui/radio-group';
-import { Checkbox } from './ui/checkbox';
-import { Label } from './ui/label';
-import { Alert, AlertDescription } from './ui/alert';
-import { useDAO } from './DAOProvider';
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Textarea } from '../../components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
+import { Switch } from '../../components/ui/switch';
+import { RadioGroup, RadioGroupItem } from '../../components/ui/radio-group';
+import { Checkbox } from '../../components/ui/checkbox';
+import { Label } from '../../components/ui/label';
+import { Alert, AlertDescription } from '../../components/ui/alert';
+import { useDAO } from '../../components/DAOProvider';
 import { toast } from 'sonner@2.0.3';
-import m9Logo from '../assets/9b8c955de5c9045c5e793f1895c5b670b83c42ab.png';
+import m9Logo from '../../assets/9b8c955de5c9045c5e793f1895c5b670b83c42ab.png';
+import { useAppNavigation } from '../../hooks';
 
-interface CreateProjectScreenProps {
-  onBack: () => void;
-  onSuccess: () => void;
-}
-
-export function CreateProjectScreen({ onBack, onSuccess }: CreateProjectScreenProps) {
+export function CreateProjectPage() {
+  const nav = useAppNavigation();
   const { wallet, createProject } = useDAO();
   const [formData, setFormData] = useState({
     name: '',
@@ -356,7 +353,7 @@ export function CreateProjectScreen({ onBack, onSuccess }: CreateProjectScreenPr
         <div className="flex items-center space-x-4 mb-8">
           <Button
             variant="ghost"
-            onClick={onBack}
+            onClick={() => nav.goBack()}
             className="p-2 rounded-xl"
             style={{ color: 'var(--dao-foreground)' }}
           >
@@ -861,7 +858,7 @@ export function CreateProjectScreen({ onBack, onSuccess }: CreateProjectScreenPr
             <Button
               type="button"
               variant="outline"
-              onClick={onBack}
+              onClick={() => nav.goBack()}
               className="rounded-xl"
             >
               Cancel

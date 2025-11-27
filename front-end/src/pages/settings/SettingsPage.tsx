@@ -14,24 +14,21 @@ import {
   Eye,
   EyeOff
 } from 'lucide-react';
-import { Button } from './ui/button';
-import { Card } from './ui/card';
-import { Badge } from './ui/badge';
-import { Separator } from './ui/separator';
-import { Switch } from './ui/switch';
-import { Label } from './ui/label';
-import { Input } from './ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { useDAO } from './DAOProvider';
-import { ThemeToggle } from './ThemeProvider';
+import { Button } from '../../components/ui/button';
+import { Card } from '../../components/ui/card';
+import { Badge } from '../../components/ui/badge';
+import { Separator } from '../../components/ui/separator';
+import { Switch } from '../../components/ui/switch';
+import { Label } from '../../components/ui/label';
+import { Input } from '../../components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
+import { useDAO } from '../../components/DAOProvider';
+import { ThemeToggle } from '../../components/ThemeProvider';
 import { toast } from 'sonner@2.0.3';
+import { useAppNavigation } from '../../hooks';
 
-interface SettingsScreenProps {
-  onBack: () => void;
-  onNavigateHome?: () => void;
-}
-
-export function SettingsScreen({ onBack, onNavigateHome }: SettingsScreenProps) {
+export function SettingsPage() {
+  const nav = useAppNavigation();
   const { wallet, isGuestMode, disconnectWallet, connectionDetails } = useDAO();
   const [showPrivateKey, setShowPrivateKey] = useState(false);
   const [notifications, setNotifications] = useState({
@@ -92,7 +89,7 @@ export function SettingsScreen({ onBack, onNavigateHome }: SettingsScreenProps) 
           <div className="flex items-center space-x-4">
             <Button 
               variant="ghost" 
-              onClick={onBack}
+              onClick={() => nav.goBack()}
               className="p-2 rounded-xl"
               style={{color: 'var(--dao-foreground)'}}
             >

@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Lock, Unlock, BarChart3, CheckCircle, AlertCircle, Loader2, Shield } from 'lucide-react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Alert, AlertDescription } from './ui/alert';
-import { useDAO } from './DAOProvider';
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Label } from '../../components/ui/label';
+import { Alert, AlertDescription } from '../../components/ui/alert';
+import { useDAO } from '../../components/DAOProvider';
 import { motion } from 'motion/react';
 import { toast } from 'sonner@2.0.3';
 import { useParams } from 'react-router-dom';
+import { useAppNavigation } from '../../hooks';
 
-interface VotingScreenProps {
-  onBack: () => void;
-  onComplete: () => void;
-}
-
-export function VotingScreen({ onBack, onComplete }: VotingScreenProps) {
+export function VotingPage() {
+  const nav = useAppNavigation();
   const { proposalId } = useParams();
   const { proposals, submitVote, revealVote, generateZKProof, zkProofStatus, setZkProofStatus } = useDAO();
   const proposal = proposals.find(p => p.id === (proposalId || ''));
@@ -132,7 +129,7 @@ export function VotingScreen({ onBack, onComplete }: VotingScreenProps) {
         <Button
           variant="outline"
           size="icon"
-          onClick={onBack}
+          onClick={() => nav.goBack()}
           className="rounded-xl"
           style={{
             borderColor: 'var(--dao-border)',

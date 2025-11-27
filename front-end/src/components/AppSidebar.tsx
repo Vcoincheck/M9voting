@@ -16,15 +16,17 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { useDAO } from './DAOProvider';
 import { useIsMobile } from './ui/use-mobile';
+import { useAppNavigation } from '../hooks/useAppNavigation';
 import m9Logo from '../assets/9b8c955de5c9045c5e793f1895c5b670b83c42ab.png';
 
 interface AppSidebarProps {
   currentScreen: string;
-  onNavigate: (screen: string, proposalId?: string, projectId?: string) => void;
+  onNavigate?: (screen: string, proposalId?: string, projectId?: string) => void;
 }
 
 export function AppSidebar({ currentScreen, onNavigate }: AppSidebarProps) {
   const { proposals } = useDAO();
+  const nav = useAppNavigation();
   const isMobile = useIsMobile();
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
   const [isDesktopCollapsed, setIsDesktopCollapsed] = useState(false);
@@ -75,7 +77,46 @@ export function AppSidebar({ currentScreen, onNavigate }: AppSidebarProps) {
   ];
 
   const handleNavigate = (screen: string, proposalId?: string, projectId?: string) => {
-    onNavigate(screen, proposalId, projectId);
+    // Map sidebar screen IDs to navigation methods
+    switch (screen) {
+      case 'dashboard':
+        nav.toDashboard();
+        break;
+      case 'proposal-list':
+        nav.toProposalList();
+        break;
+      case 'proposal-details':
+        if (proposalId) nav.toProposalDetails(proposalId);
+        break;
+      case 'create-proposal':
+        nav.toCreateProposal();
+        break;
+      case 'voting':
+        if (proposalId) nav.toVoting(proposalId);
+        break;
+      case 'projects-community':
+        nav.toProjectsCommunity();
+        break;
+      case 'project-details':
+        if (projectId) nav.toProjectDetails(projectId);
+        break;
+      case 'create-project':
+        nav.toCreateProject();
+        break;
+      case 'activities':
+        nav.toActivities();
+        break;
+      case 'settings':
+        nav.toSettings();
+        break;
+      case 'documents':
+        nav.toDocuments();
+        break;
+      case 'homepage':
+        nav.toLanding();
+        break;
+    }
+    
     // Auto-collapse on mobile after navigation
     if (isMobile) {
       setIsCollapsed(true);

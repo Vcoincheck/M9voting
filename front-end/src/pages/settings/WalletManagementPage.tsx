@@ -1,20 +1,18 @@
 import React from 'react';
 import { ArrowLeft, Shield, AlertTriangle } from 'lucide-react';
-import { Button } from './ui/button';
-import { Alert, AlertDescription } from './ui/alert';
-import { useDAO } from './DAOProvider';
-import { WalletInfo } from './wallet/WalletInfo';
-import { SessionInfo } from './wallet/SessionInfo';
-import { PrivacyFeatures } from './wallet/PrivacyFeatures';
-import { SessionActions } from './wallet/SessionActions';
-import { SecurityTips } from './wallet/SecurityTips';
-import { isSessionExpiring } from './utils/walletUtils';
+import { Button } from '../../components/ui/button';
+import { Alert, AlertDescription } from '../../components/ui/alert';
+import { useDAO } from '../../components/DAOProvider';
+import { WalletInfo } from '../../components/wallet/WalletInfo';
+import { SessionInfo } from '../../components/wallet/SessionInfo';
+import { PrivacyFeatures } from '../../components/wallet/PrivacyFeatures';
+import { SessionActions } from '../../components/wallet/SessionActions';
+import { SecurityTips } from '../../components/wallet/SecurityTips';
+import { isSessionExpiring } from '../../components/utils/walletUtils';
+import { useAppNavigation } from '../../hooks';
 
-interface WalletManagementScreenProps {
-  onBack: () => void;
-}
-
-export function WalletManagementScreen({ onBack }: WalletManagementScreenProps) {
+export function WalletManagementPage() {
+  const nav = useAppNavigation();
   const { wallet, disconnectWallet } = useDAO();
 
   if (!wallet) {
@@ -24,7 +22,7 @@ export function WalletManagementScreen({ onBack }: WalletManagementScreenProps) 
           <h2 className="text-2xl font-bold mb-4" style={{color: 'var(--dao-foreground)'}}>
             No Wallet Connected
           </h2>
-          <Button onClick={onBack} className="dao-gradient-blue text-white rounded-xl">
+          <Button onClick={() => nav.goBack()} className="dao-gradient-blue text-white rounded-xl">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
           </Button>
@@ -42,7 +40,7 @@ export function WalletManagementScreen({ onBack }: WalletManagementScreenProps) 
         <Button
           variant="outline"
           size="icon"
-          onClick={onBack}
+          onClick={() => nav.goBack()}
           className="rounded-xl"
           style={{
             borderColor: 'var(--dao-border)',
