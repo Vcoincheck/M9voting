@@ -1,18 +1,18 @@
 ﻿import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { ArrowLeft, Users, Vote, Eye, Calendar, Globe, Lock, ExternalLink, MessageCircle, Star, Share2, Bell, BarChart3, TrendingUp, Activity, FileText, Coins } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Progress } from './ui/progress';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Chart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { useDAO } from './DAOProvider';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import vietCardanoLogo from '../assets/f9fb9d7e6a371661d7790f3c05ed29936615536c.png';
 import vtechcomLogo from '../assets/19e3ee003cfb6111a0a470c6e8c25bdf3d23526d.png';
 
 interface ProjectDetailsScreenProps {
-  projectId: string;
   onBack: () => void;
   onNavigate: (screen: string, proposalId?: string) => void;
 }
@@ -473,14 +473,15 @@ const projectDetails = {
   }
 };
 
-export function ProjectDetailsScreen({ projectId, onBack, onNavigate }: ProjectDetailsScreenProps) {
+export function ProjectDetailsScreen({ onBack, onNavigate }: ProjectDetailsScreenProps) {
+  const { projectId } = useParams();
   const { isGuestMode, tempProjects } = useDAO();
   const [activeTab, setActiveTab] = useState('overview');
   const [isFollowing, setIsFollowing] = useState(false);
 
   // Check if it's a temporary project first
   let project;
-  if (projectId.startsWith('temp_')) {
+  if (projectId && projectId.startsWith('temp_')) {
     const tempProject = tempProjects.find(p => p.id === projectId);
     if (tempProject) {
       // Convert temporary project to the expected format
@@ -490,7 +491,8 @@ export function ProjectDetailsScreen({ projectId, onBack, onNavigate }: ProjectD
         createdAt: tempProject.createdAt instanceof Date 
           ? tempProject.createdAt.toISOString().split('T')[0] 
           : tempProject.createdAt,
-        proposals: [] // Temporary projects start with no proposals
+        proposals: [], // Temporary projects start with no proposals
+        github: tempProject.github // Add github property if present
       };
     }
   } else {
@@ -637,7 +639,7 @@ export function ProjectDetailsScreen({ projectId, onBack, onNavigate }: ProjectD
         </div>
 
         {/* Temporary Project Notice */}
-        {projectId.startsWith('temp_') && (
+        {projectId?.startsWith('temp_') && (
           <div className="mb-6 p-4 rounded-xl border" 
                style={{ 
                  backgroundColor: 'var(--dao-accent-blue)15', 
@@ -754,7 +756,7 @@ export function ProjectDetailsScreen({ projectId, onBack, onNavigate }: ProjectD
                         Project Type
                       </label>
                       <div className="flex items-center space-x-2">
-                        {project.type === 'private' ? (
+                        {project.type !== 'public' ? (
                           <Lock className="w-4 h-4" style={{ color: 'var(--dao-warning)' }} />
                         ) : (
                           <Globe className="w-4 h-4" style={{ color: 'var(--dao-success)' }} />

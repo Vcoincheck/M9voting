@@ -78,15 +78,15 @@ export function DemoNoticeModal({ isOpen, onClose }: DemoNoticeModalProps) {
           {showNotice ? (
             // Initial Notice
             <div className="text-center space-y-4">
-              <h2 className="text-xl font-bold">âš¡ Important Notice âš¡</h2>
+              <h2 className="text-xl font-bold"> Important Notice </h2>
               <br></br><p>This product is under development, features may change.</p>
               <p>We are in pre-release phase, feedback is welcome.</p>
-              <br></br><p className="italic text-sm">M9voting â€“ built by VCC, empowered by Cardano community</p>
+              <br></br><p className="italic text-sm">M9voting built by VCC, empowered by Cardano community</p>
             </div>
           ) : (
             // Tech Log presentation
             <div className="text-center space-y-4">
-              <h2 className="text-lg font-semibold">ðŸ”§ Update Log</h2>
+              <h2 className="text-lg font-semibold">Update Log</h2>
               <p className="text-blue-600 dark:text-blue-400 font-bold">
                 {TECH_LOGS[logIndex].version}
               </p>
@@ -107,4 +107,6 @@ export function DemoNoticeModal({ isOpen, onClose }: DemoNoticeModalProps) {
     </div>
   );
 }
+
+
 

@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
@@ -11,7 +12,7 @@ export function FeedbackButton() {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
-        dropdownRef.current && 
+        dropdownRef.current &&
         buttonRef.current &&
         !dropdownRef.current.contains(event.target as Node) &&
         !buttonRef.current.contains(event.target as Node)
@@ -19,7 +20,6 @@ export function FeedbackButton() {
         setIsOpen(false);
       }
     }
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
@@ -58,12 +58,12 @@ export function FeedbackButton() {
           ${isOpen ? 'scale-105 shadow-xl' : ''}
         `}
       >
-        <MessageSquare className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-12' : 'group-hover:rotate-12'}`} />
+  <MessageSquare className={`h-4 w-4 transition-transform duration-200 text-blue-700 dark:text-blue-300 ${isOpen ? 'rotate-12' : 'group-hover:rotate-12'}`} />
         <span className="font-medium">Feedback</span>
         <div className={`w-2 h-2 bg-white/30 rounded-full transition-all duration-200 ${isOpen ? 'scale-150' : ''}`}></div>
       </Button>
 
-      {/* Dropdown Menu */}
+
       {isOpen && (
         <div 
           ref={dropdownRef}
@@ -103,16 +103,16 @@ export function FeedbackButton() {
                       className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:shadow-sm transition-all duration-150"
                       style={{
                         background: 'linear-gradient(135deg, var(--dao-accent-blue), var(--dao-accent-purple))',
-                        opacity: 0.2
+                        opacity: 0.5
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.opacity = '0.3';
+                        e.currentTarget.style.opacity = '0.7';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.opacity = '0.2';
+                        e.currentTarget.style.opacity = '0.5';
                       }}
                     >
-                      <IconComponent className="h-5 w-5" style={{ color: 'var(--dao-accent-blue)' }} />
+                      <IconComponent className="h-5 w-5 text-blue-700 dark:text-blue-300" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">

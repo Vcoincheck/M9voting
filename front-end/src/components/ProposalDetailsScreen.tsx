@@ -5,16 +5,22 @@ import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
 import { Separator } from './ui/separator';
 import { useDAO, Proposal } from './DAOProvider';
+import { useParams } from 'react-router-dom';
 
 interface ProposalDetailsScreenProps {
-  proposalId: string;
   onBack: () => void;
   onVote: (proposalId: string) => void;
 }
 
-export function ProposalDetailsScreen({ proposalId, onBack, onVote }: ProposalDetailsScreenProps) {
-  const { proposals } = useDAO();
-  const proposal = proposals.find(p => p.id === proposalId);
+export function ProposalDetailsScreen({ onBack, onVote }: ProposalDetailsScreenProps) {
+  const { proposalId } = useParams();
+  const { proposals, getProposal } = useDAO();
+  const proposal = getProposal(proposalId || '');
+  // Debug log
+  if (!proposal) {
+    // eslint-disable-next-line no-console
+    console.warn('Proposal not found:', { proposalId, proposals });
+  }
 
   if (!proposal) {
     return (

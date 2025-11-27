@@ -1,3 +1,8 @@
+html, body {
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 /*! tailwindcss v4.1.3 | MIT License | https://tailwindcss.com */
 @layer properties {
   @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
@@ -264,7 +269,7 @@
   }
 
   img, svg, video, canvas, audio, iframe, embed, object {
-    vertical-align: middle;
+  /* vertical-align removed: ignored for display: block */
     display: block;
   }
 
@@ -427,18 +432,17 @@
   }
 
   body {
-    transition-property: all;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
-    --tw-duration: .3s;
-    --tw-ease: var(--ease-in-out);
-    transition-duration: .3s;
-    transition-timing-function: var(--ease-in-out);
-    background: var(--dao-background-gradient);
-    color: var(--dao-foreground);
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow-x: hidden;
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+  --tw-duration: .3s;
+  --tw-ease: var(--ease-in-out);
+  transition-duration: .3s;
+  transition-timing-function: var(--ease-in-out);
+  background: var(--dao-background-gradient);
+  color: var(--dao-foreground);
+  min-height: 100vh;
+  /* Removed background-attachment: fixed and overflow-x: hidden for scroll fix */
   }
 
   @media (width <= 768px) {
@@ -890,21 +894,24 @@
   }
 
   .line-clamp-1 {
-    -webkit-line-clamp: 1;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
   }
 
   .line-clamp-2 {
-    -webkit-line-clamp: 2;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
   }
 
   .line-clamp-3 {
-    -webkit-line-clamp: 3;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
@@ -3894,7 +3901,8 @@
   }
 
   :is(.\*\:data-\[slot\=select-value\]\:line-clamp-1 > *)[data-slot="select-value"] {
-    -webkit-line-clamp: 1;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;

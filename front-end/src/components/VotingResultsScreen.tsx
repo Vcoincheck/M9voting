@@ -7,34 +7,36 @@ import { Separator } from './ui/separator';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { useDAO } from './DAOProvider';
+import { useParams } from 'react-router-dom';
 
 interface VotingResultsScreenProps {
-  proposalId: string;
   onBack: () => void;
 }
 
-export function VotingResultsScreen({ proposalId, onBack }: VotingResultsScreenProps) {
+export function VotingResultsScreen({ onBack }: VotingResultsScreenProps) {
+  const { proposalId } = useParams();
   const { proposals } = useDAO();
-  const proposal = proposals.find(p => p.id === proposalId);
+  const proposal = proposals.find(p => p.id === (proposalId || ''));
   const [copied, setCopied] = useState(false);
 
   if (!proposal) return null;
 
-  const totalVotes = proposal.votes.yes + proposal.votes.no + proposal.votes.abstain;
-  const yesPercentage = totalVotes > 0 ? (proposal.votes.yes / totalVotes) * 100 : 0;
-  const noPercentage = totalVotes > 0 ? (proposal.votes.no / totalVotes) * 100 : 0;
-  const abstainPercentage = totalVotes > 0 ? (proposal.votes.abstain / totalVotes) * 100 : 0;
+  const results = proposal.results || { yes: 0, no: 0, abstain: 0 };
+  const totalVotes = results.yes + results.no + results.abstain;
+  const yesPercentage = totalVotes > 0 ? (results.yes / totalVotes) * 100 : 0;
+  const noPercentage = totalVotes > 0 ? (results.no / totalVotes) * 100 : 0;
+  const abstainPercentage = totalVotes > 0 ? (results.abstain / totalVotes) * 100 : 0;
 
   const pieData = [
-    { name: 'Yes', value: proposal.votes.yes, color: 'var(--dao-success)' },
-    { name: 'No', value: proposal.votes.no, color: 'var(--dao-error)' },
-    { name: 'Abstain', value: proposal.votes.abstain, color: 'var(--dao-foreground)' }
+    { name: 'Yes', value: results.yes, color: 'var(--dao-success)' },
+    { name: 'No', value: results.no, color: 'var(--dao-error)' },
+    { name: 'Abstain', value: results.abstain, color: 'var(--dao-foreground)' }
   ];
 
   const barData = [
-    { name: 'Yes', votes: proposal.votes.yes, percentage: yesPercentage },
-    { name: 'No', votes: proposal.votes.no, percentage: noPercentage },
-    { name: 'Abstain', votes: proposal.votes.abstain, percentage: abstainPercentage }
+    { name: 'Yes', votes: results.yes, percentage: yesPercentage },
+    { name: 'No', votes: results.no, percentage: noPercentage },
+    { name: 'Abstain', votes: results.abstain, percentage: abstainPercentage }
   ];
 
   const quorumReached = proposal.participationRate >= 60; // Assuming 60% quorum threshold
@@ -113,7 +115,7 @@ export function VotingResultsScreen({ proposalId, onBack }: VotingResultsScreenP
               </div>
               <div className="text-right">
                 <div className="font-bold" style={{color: 'var(--dao-success)'}}>
-                  {proposal.votes.yes.toLocaleString()}
+                  {results.yes.toLocaleString()}
                 </div>
                 <div className="text-sm opacity-70" style={{color: 'var(--dao-foreground)'}}>
                   {yesPercentage.toFixed(1)}%
@@ -128,7 +130,7 @@ export function VotingResultsScreen({ proposalId, onBack }: VotingResultsScreenP
               </div>
               <div className="text-right">
                 <div className="font-bold" style={{color: 'var(--dao-error)'}}>
-                  {proposal.votes.no.toLocaleString()}
+                  {results.no.toLocaleString()}
                 </div>
                 <div className="text-sm opacity-70" style={{color: 'var(--dao-foreground)'}}>
                   {noPercentage.toFixed(1)}%
@@ -143,7 +145,7 @@ export function VotingResultsScreen({ proposalId, onBack }: VotingResultsScreenP
               </div>
               <div className="text-right">
                 <div className="font-bold opacity-70" style={{color: 'var(--dao-foreground)'}}>
-                  {proposal.votes.abstain.toLocaleString()}
+                  {results.abstain.toLocaleString()}
                 </div>
                 <div className="text-sm opacity-70" style={{color: 'var(--dao-foreground)'}}>
                   {abstainPercentage.toFixed(1)}%
@@ -287,12 +289,12 @@ export function VotingResultsScreen({ proposalId, onBack }: VotingResultsScreenP
               <div className="flex items-center space-x-2 mt-1">
                 <code className="flex-1 p-3 rounded-lg text-xs font-mono break-all"
                       style={{backgroundColor: 'var(--dao-background)', color: 'var(--dao-foreground)'}}>
-                  {proposal.merkleRoot || '0x4f8b2a7c3d9e1f6a8b5c2d7e9f0g1h2i3j4k5l6m7n8o9p0q1r2s3t4u5v6w7x8y9z0a1b2c3d4e5f6g7h8'}
+                  {'0x4f8b2a7c3d9e1f6a8b5c2d7e9f0g1h2i3j4k5l6m7n8o9p0q1r2s3t4u5v6w7x8y9z0a1b2c3d4e5f6g7h8'}
                 </code>
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={() => copyToClipboard(proposal.merkleRoot || '0x4f8b2a7c3d9e1f...')}
+                  onClick={() => copyToClipboard('0x4f8b2a7c3d9e1f...')}
                   className="rounded-lg shrink-0"
                   style={{borderColor: 'var(--dao-border)', color: 'var(--dao-foreground)'}}
                 >

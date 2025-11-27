@@ -332,13 +332,13 @@ const getProjectLogo = (projectId: string) => {
 
 const getCategoryIcon = (category: string) => {
   switch (category) {
-    case 'defi': return 'ðŸ’°';
-    case 'nft': return 'ðŸŽ¨';
-    case 'gaming': return 'ðŸŽ®';
-    case 'dao': return 'ðŸ›ï¸';
-    case 'infrastructure': return 'âš¡';
-    case 'social': return 'ðŸŒ';
-    default: return 'ðŸ“‹';
+    case 'defi': return '💰';
+    case 'nft': return '🎨';
+    case 'gaming': return '🎮';
+    case 'dao': return '🏛️';
+    case 'infrastructure': return '⚡';
+    case 'social': return '🌍';
+    default: return '📋';
   }
 };
 

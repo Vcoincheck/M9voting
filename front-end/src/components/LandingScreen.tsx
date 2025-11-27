@@ -5,6 +5,8 @@ import { AppHeader } from './AppHeader';
 import { DemoNoticeModal } from './DemoNoticeModal';
 import m9Logo from '../assets/f45b2fc73c3a8a5b34e9c23d1b875d47c63c77ca.png';
 
+import { FeedbackButton } from './FeedbackButton';
+
 interface LandingScreenProps {
   onGoToApp: () => void;
 }
@@ -30,10 +32,9 @@ export function LandingScreen({ onGoToApp }: LandingScreenProps) {
   };
 
   return (
-    <div className="min-h-screen">
+    <div>
       <AppHeader onNavigateToApp={onGoToApp} />
-      
-      <main className="relative overflow-hidden">
+  <main className="relative overflow-y-auto min-h-screen">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full dao-gradient-blue blur-3xl"></div>
@@ -47,8 +48,7 @@ export function LandingScreen({ onGoToApp }: LandingScreenProps) {
             {/* Main Title */}
             <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-8 tracking-tight">
               <span className="dao-text-gradient">M9 Privacy</span>
-              <br />
-              <span style={{color: 'var(--dao-foreground)'}}>Voting</span>
+              {/* ...no misplaced return or div here... */}
             </h1>
 
             {/* Subtitle */}
@@ -61,6 +61,7 @@ export function LandingScreen({ onGoToApp }: LandingScreenProps) {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+
               <Button
                 onClick={onGoToApp}
                 size="lg"
@@ -235,6 +236,9 @@ export function LandingScreen({ onGoToApp }: LandingScreenProps) {
           </div>
         </footer>
       </main>
+
+      {/* Feedback Button fixed at bottom right */}
+      <FeedbackButton />
 
       {/* Demo Notice Modal */}
       <DemoNoticeModal 

@@ -75,6 +75,7 @@ interface DAOContextType {
   votes: Vote[];
   tempProjects: TempProject[];
   zkProofStatus: 'idle' | 'generating' | 'success' | 'error';
+  setZkProofStatus: React.Dispatch<React.SetStateAction<'idle' | 'generating' | 'success' | 'error'>>;
   showWalletSelector: boolean;
   showConnectionPopup: boolean;
   connectionDetails: {
@@ -713,8 +714,7 @@ export function DAOProvider({ children }: { children: React.ReactNode }) {
     // Simulate ZK proof generation - always succeed for demo
     await new Promise(resolve => setTimeout(resolve, 2000));
     
-    // Always set to success to match user's requirement
-    setZkProofStatus('success');
+      setZkProofStatus('success');
   };
 
   const submitVote = async (proposalId: string, choice: 'yes' | 'no' | 'abstain', secret: string): Promise<void> => {
@@ -776,6 +776,7 @@ export function DAOProvider({ children }: { children: React.ReactNode }) {
       votes,
       tempProjects,
       zkProofStatus,
+      setZkProofStatus,
       showWalletSelector,
       showConnectionPopup,
       connectionDetails,

@@ -81,48 +81,81 @@ export function AppHeader({
             style={{
               borderColor: 'var(--dao-border)'
             }}>
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Left: Logo + App name */}
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-2xl overflow-hidden flex items-center justify-center">
-              <img src={m9Logo} alt="M9 Logo" className="w-full h-full object-contain" />
-            </div>
-            <div>
-              <h1 className="font-bold text-xl dao-text-gradient">M9 Privacy Voting</h1>
-              <p className="text-xs opacity-70" style={{color: 'var(--dao-foreground)'}}>
-                Zero-Knowledge DAO Governance
-              </p>
-            </div>
-          </div>
+  <div className="container mx-auto px-6 py-4">
+    <div className="flex items-center justify-between">
+      {/* Left: Logo + App name */}
+      <div className="flex items-center space-x-3">
+        <div className="w-10 h-10 rounded-2xl overflow-hidden flex items-center justify-center">
+          <img src={m9Logo} alt="M9 Logo" className="w-full h-full object-contain" />
+        </div>
+        <div>
+          <h1 className="font-bold text-xl dao-text-gradient">M9 Privacy Voting</h1>
+          <p
+            className="text-xs opacity-70"
+            style={{ color: 'var(--dao-foreground)' }}
+          >
+            Zero-Knowledge DAO Governance
+          </p>
+        </div>
+      </div>
 
-          {/* Right: Theme toggle + Wallet button */}
-          <div className="flex items-center space-x-4">
-            {/* Connect Wallet Button for Guest Mode or Tech Docs for non-connected users */}
-            {!wallet && (
-              <>
-                {isGuestMode ? (
-                  <Button
-                    onClick={handleWalletConnect}
-                    className="rounded-xl dao-gradient-blue text-white border-0 hidden md:flex"
-                  >
-                    <Wallet className="w-4 h-4 mr-2" />
-                    Connect Wallet
-                  </Button>
-                ) : (
-                  <Button
-                    variant="outline"
-                    onClick={handleTechDocs}
-                    className="rounded-xl hidden md:flex"
-                    style={{
-                      borderColor: 'var(--dao-border)',
-                      color: 'var(--dao-foreground)'
-                    }}
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Tech Docs
-                  </Button>
-                )}
+      {/* Center: Catalyst proposal support */}
+      <div className="flex-1 flex justify-center">
+        <div className="flex items-center gap-2 w-fit animate-pulse hover:scale-105 transition-transform duration-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-4 h-4 text-yellow-400 drop-shadow animate-bounce"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <span className="text-xxs font-semibold px-2 py-1 rounded inline-block shadow-md" style={{textShadow: '0 0 8px rgba(255,255,255,0.4)'}}>
+            <span style={{color: '#ff6a00'}}>Support us by voting</span>
+            <span style={{color: '#ffd700'}}> our Catalyst proposal</span>
+            <span style={{color: '#00c3ff'}}> in Fund14</span>
+            <span style={{color: '#ff00c8'}}> (Key: VCC)</span>
+          </span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-4 h-4 text-yellow-400 drop-shadow animate-bounce"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Right: Theme toggle + Wallet button */}
+      <div className="flex items-center space-x-4">
+        {!wallet && (
+          <>
+            {isGuestMode ? (
+              <Button
+                onClick={handleWalletConnect}
+                className="rounded-xl dao-gradient-blue text-white border-0 hidden md:flex"
+              >
+                <Wallet className="w-4 h-4 mr-2" />
+                Connect Wallet
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                onClick={handleTechDocs}
+                className="rounded-xl hidden md:flex"
+                style={{
+                  borderColor: 'var(--dao-border)',
+                  color: 'var(--dao-foreground)',
+                }}
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Tech Docs
+              </Button>
+            )}
+
 
                 {onNavigateToApp && (
                   <Button

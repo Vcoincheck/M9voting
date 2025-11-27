@@ -7,16 +7,17 @@ import { Alert, AlertDescription } from './ui/alert';
 import { useDAO } from './DAOProvider';
 import { motion } from 'motion/react';
 import { toast } from 'sonner@2.0.3';
+import { useParams } from 'react-router-dom';
 
 interface VotingScreenProps {
-  proposalId: string;
   onBack: () => void;
   onComplete: () => void;
 }
 
-export function VotingScreen({ proposalId, onBack, onComplete }: VotingScreenProps) {
-  const { proposals, submitVote, revealVote, generateZKProof, zkProofStatus } = useDAO();
-  const proposal = proposals.find(p => p.id === proposalId);
+export function VotingScreen({ onBack, onComplete }: VotingScreenProps) {
+  const { proposalId } = useParams();
+  const { proposals, submitVote, revealVote, generateZKProof, zkProofStatus, setZkProofStatus } = useDAO();
+  const proposal = proposals.find(p => p.id === (proposalId || ''));
   
   const [selectedVote, setSelectedVote] = useState<'yes' | 'no' | 'abstain' | null>(null);
   const [secret, setSecret] = useState('');
@@ -91,7 +92,7 @@ export function VotingScreen({ proposalId, onBack, onComplete }: VotingScreenPro
   const handleSubmitReveal = async () => {
     if (!revealData.vote || !revealData.secret) return;
     try {
-      await revealVote(proposalId, revealData.vote as 'yes' | 'no' | 'abstain', revealData.secret);
+      await revealVote(proposalId || '', revealData.vote as 'yes' | 'no' | 'abstain', revealData.secret);
       
       // Show success notification
       toast.success('Vote Revealed Successfully!', {
@@ -300,6 +301,15 @@ export function VotingScreen({ proposalId, onBack, onComplete }: VotingScreenPro
                 </h3>
                 
                 <p className="opacity-70 mb-6" style={{color: 'var(--dao-foreground)'}}>
+                        <Button
+                          className="dao-gradient-blue text-white rounded-xl"
+                          onClick={() => {
+                            setStep('select');
+                            setZkProofStatus && setZkProofStatus('idle');
+                          }}
+                        >
+                          Vote Again
+                        </Button>
                   {zkProofStatus === 'generating' ? 'Creating cryptographic proof of your vote validity...' :
                    zkProofStatus === 'success' ? 'Your vote is ready to be submitted anonymously with complete privacy.' :
                    'Please try again or contact support.'}
@@ -324,7 +334,7 @@ export function VotingScreen({ proposalId, onBack, onComplete }: VotingScreenPro
                   <Button
                     onClick={() => {
                       setStep('select');
-                      // Reset the zkProofStatus when trying again
+                      setZkProofStatus && setZkProofStatus('idle');
                     }}
                     variant="outline"
                     className="rounded-xl"

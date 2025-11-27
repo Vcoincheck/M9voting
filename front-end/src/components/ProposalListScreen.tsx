@@ -14,6 +14,11 @@ interface ProposalListScreenProps {
 
 export function ProposalListScreen({ onBack, onViewProposal, onCreateProposal }: ProposalListScreenProps) {
   const { proposals, isGuestMode } = useDAO();
+  // Debug: log proposals ids
+  React.useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log('ProposalListScreen proposals:', proposals.map(p => p.id));
+  }, [proposals]);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [sortBy, setSortBy] = useState('deadline');
@@ -240,7 +245,11 @@ export function ProposalListScreen({ onBack, onViewProposal, onCreateProposal }:
             <div
               key={proposal.id}
               className="dao-card p-6 cursor-pointer transition-all duration-300"
-              onClick={() => onViewProposal(proposal.id)}
+              onClick={() => {
+                // eslint-disable-next-line no-console
+                console.log('Clicked proposal id:', proposal.id);
+                onViewProposal(proposal.id);
+              }}
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-4">

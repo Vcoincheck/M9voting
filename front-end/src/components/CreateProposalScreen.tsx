@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { ArrowLeft, FileText, Coins, Shield, Eye, Plus, Lock, Percent, ChevronRight, ChevronLeft, Check, AlertCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -87,24 +87,30 @@ const proposalTemplates = [
 
 export function CreateProposalScreen({ onBack, onSuccess }: CreateProposalScreenProps) {
   const { createProposal, wallet, tempProjects, proposals } = useDAO();
-  // Combine tempProjects and all projects from proposals for search
+  // Mocked list of available projects for search/suggestion
   const allProjects = [
-    ...tempProjects,
-    ...proposals.map(p => ({
-      id: p.id,
-      name: p.title,
-      description: p.description,
-      // fallback fields for compatibility
-      type: 'public',
-      category: 'dao',
-      memberCount: 0,
-      proposalCount: 0,
-      activeVotes: 0,
-      createdAt: p.createdAt,
-      creator: p.creator,
-      hasDetailedInfo: false
-    }))
+    { id: 'night-privacy', name: 'NIGHT Token Integration for Privacy Staking' },
+    { id: 'treasury-wada', name: 'Treasury Management: WADA Allocation for Development' },
+    { id: 'governance-threshold', name: 'Governance Parameter Update: Voting Threshold' },
+    { id: 'privacy-network', name: 'Partnership Proposal: Integration with Privacy Network' },
+    { id: 'zk-snark', name: 'Enhanced ZK-SNARK Circuit Optimization' },
+    { id: 'multi-chain', name: 'Multi-Chain Bridge Implementation' },
+    { id: 'community-incentive', name: 'Community Incentive Program Launch' },
+    { id: 'constitution-amendment', name: 'DAO Constitution Amendment: Voting Period Extension' },
+    { id: 'privacy-analytics', name: 'Privacy-First Analytics Dashboard' },
+    { id: 'emergency-upgrade', name: 'Emergency Protocol Upgrade Mechanism' },
+    { id: 'research-grant', name: 'Research Grant for Academic Partnerships' },
+    { id: 'wallet-integration', name: 'Mobile Wallet Integration Support' },
+    { id: 'quadratic-voting', name: 'Quadratic Voting Implementation' },
+    { id: 'liquidity-mining', name: 'Liquidity Mining Program for NIGHT/WADA Pools' },
+    { id: 'token-split', name: 'DAO Governance Token Split Proposal' },
   ];
+
+  // State for project name input and suggestions
+  // State for project name input and suggestions
+  const [projectInput, setProjectInput] = useState<string>('');
+  const matchingProjects = allProjects.filter((p) => p.name.includes(projectInput) && projectInput.length > 0);
+  const isProjectValid = allProjects.some((p) => p.name === projectInput);
 
   // State for ZK hash popup
   const [zkHash, setZkHash] = useState<string | null>(null);
@@ -202,18 +208,21 @@ export function CreateProposalScreen({ onBack, onSuccess }: CreateProposalScreen
     <TooltipProvider>
       {/* ZK Hash Proof Popup */}
       {zkHash && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white dark:bg-gray-900 rounded-xl p-8 shadow-xl max-w-md w-full relative">
-            <h2 className="text-xl font-bold mb-4">Proposal ZK Hash Proof</h2>
-            <div className="break-all text-blue-700 dark:text-blue-300 text-lg font-mono mb-4">{zkHash}</div>
-            <button
-              className="absolute top-2 right-2 text-gray-400 hover:text-gray-700"
-              onClick={() => { setZkHash(null); onSuccess(); }}
-              aria-label="Close"
-            >
-              ×
-            </button>
-            <div className="text-xs opacity-70">Lưu lại hash này để xác minh proposal trên hệ thống ZK.</div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="relative">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-sm w-full flex flex-col items-center justify-center p-10" style={{minWidth: 340, position: 'relative'}}>
+              <button
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-full bg-transparent"
+                onClick={() => { setZkHash(null); onSuccess(); }}
+                aria-label="Close"
+                style={{lineHeight: 1, width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+              <h2 className="text-2xl font-bold mb-4 text-center">Proposal ZK Hash Proof</h2>
+              <div className="break-all text-blue-700 dark:text-blue-300 text-lg font-mono mb-6 px-2 py-3 rounded-lg bg-blue-50 dark:bg-gray-800 w-full text-center" style={{wordBreak: 'break-all'}}>{zkHash}</div>
+              <div className="text-xs opacity-70 text-center">Save this hash to verify the proposal on the ZK system.</div>
+            </div>
           </div>
         </div>
       )}
@@ -342,13 +351,13 @@ export function CreateProposalScreen({ onBack, onSuccess }: CreateProposalScreen
 // Progress Indicator Component
 function ProgressIndicator({ currentStep, steps, isStepValid }: {
   currentStep: Step;
-  steps: typeof steps;
+  steps: Array<{ id: number; title: string; icon: any }>;
   isStepValid: (step: Step) => boolean;
 }) {
   return (
     <div className="dao-card p-6">
       <div className="flex items-center justify-between">
-        {steps.map((step, index) => {
+  {steps.map((step, index) => {
           const isActive = currentStep === step.id;
           const isCompleted = currentStep > step.id && isStepValid(step.id as Step);
           const isValid = isStepValid(step.id as Step);
@@ -409,10 +418,10 @@ function BasicDetailsStep({ formData, setFormData, allProjects }: {
 }) {
   const charCount = formData.description.length;
   const maxChars = 1000;
-  const [projectSearch, setProjectSearch] = useState('');
-  const filteredProjects = allProjects.filter(p =>
-    p.name.toLowerCase().includes(projectSearch.toLowerCase())
-  );
+  // State for project name input and suggestions
+  const [projectInput, setProjectInput] = useState<string>('');
+  const matchingProjects = allProjects.filter((p: {name: string}) => p.name.includes(projectInput) && projectInput.length > 0);
+  const isProjectValid = allProjects.some((p: {name: string}) => p.name === projectInput);
   return (
     <div className="space-y-6">
       <div>
@@ -422,42 +431,60 @@ function BasicDetailsStep({ formData, setFormData, allProjects }: {
         </p>
       </div>
 
-      {/* Project Search & Select */}
-      <div>
-        <Label htmlFor="project-search">Select Project</Label>
+      {/* Project Name Input & Suggestions */}
+      <div style={{position: 'relative'}}>
+        <Label htmlFor="project-input">Project Name</Label>
         <Input
-          id="project-search"
-          placeholder="Search project by name..."
-          value={projectSearch}
-          onChange={e => setProjectSearch(e.target.value)}
+          id="project-input"
+          placeholder="Enter project name..."
+          value={projectInput}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setProjectInput(e.target.value);
+            setFormData({ ...formData, projectId: e.target.value });
+          }}
           className="rounded-xl mb-2"
         />
-        <div className="max-h-40 overflow-y-auto border rounded-xl bg-white dark:bg-black">
-          {filteredProjects.length === 0 && (
-            <div className="p-2 text-sm opacity-60">No projects found</div>
-          )}
-          {filteredProjects.map(project => (
-            <div
-              key={project.id}
-              className={`p-2 cursor-pointer hover:bg-blue-100 dark:hover:bg-gray-800 ${formData.projectId === project.id ? 'bg-blue-50 dark:bg-gray-900 font-bold' : ''}`}
-              onClick={() => setFormData({ ...formData, projectId: project.id })}
-            >
-              {project.name}
-              {formData.projectId === project.id && <span className="ml-2 text-xs text-blue-500">(Selected)</span>}
-            </div>
-          ))}
-        </div>
-        {formData.projectId && (
-          <div className="text-xs mt-1 opacity-70">Selected Project: {filteredProjects.find(p => p.id === formData.projectId)?.name || 'Unknown'}</div>
+        {/* Suggestions dropdown */}
+        {matchingProjects.length > 0 && (
+          <div
+            className="max-h-40 overflow-y-auto border rounded-xl bg-white dark:bg-black shadow-xl"
+            style={{
+              position: 'absolute',
+              zIndex: 50,
+              width: '100%',
+              background: 'rgba(221, 214, 214, 0.98)',
+              top: 'calc(100% + 4px)',
+              left: 0,
+              boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
+              border: '1px solid var(--dao-border)',
+            }}
+          >
+            {matchingProjects.map((project: {id: string, name: string}) => (
+              <div
+                key={project.id}
+                className="p-2 cursor-pointer hover:bg-blue-100 dark:hover:bg-gray-800"
+                onClick={() => {
+                  setProjectInput(project.name);
+                  setFormData({ ...formData, projectId: project.name });
+                }}
+              >
+                {project.name}
+              </div>
+            ))}
+          </div>
+        )}
+        {/* Warning if project name does not match */}
+        {projectInput && !isProjectValid && (
+          <div className="text-xs mt-1 text-red-500">You must create the project first.</div>
         )}
       </div>
 
       {/* Ai Có Thể Vote */}
       <div>
-        <Label>Ai Có Thể Vote</Label>
-        <Select value={formData.voterType || ''} onValueChange={voterType => setFormData({ ...formData, voterType: voterType as any })}>
+        <Label>Who can vote</Label>
+  <Select value={formData.voterType || ''} onValueChange={(voterType: string) => setFormData({ ...formData, voterType: voterType as any })}>
           <SelectTrigger className="w-full rounded-xl mt-1">
-            <SelectValue placeholder="Chọn đối tượng có thể vote" />
+            <SelectValue placeholder="Select the object that can vote" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="token">Token Holders</SelectItem>
@@ -473,7 +500,7 @@ function BasicDetailsStep({ formData, setFormData, allProjects }: {
               type="number"
               min="1"
               max="100"
-              placeholder="Nhập threshold (%)"
+              placeholder="Input threshold (%)"
               value={formData.voterThreshold || ''}
               onChange={e => setFormData({ ...formData, voterThreshold: e.target.value })}
               className="rounded-xl"
@@ -483,7 +510,7 @@ function BasicDetailsStep({ formData, setFormData, allProjects }: {
         {/* Whitelist addresses */}
         {formData.voterType === 'whitelist' && (
           <div className="mt-2">
-            <Label>Whitelist Addresses (mỗi dòng 1 địa chỉ)</Label>
+            <Label>Whitelist Addresses (1 address per line)</Label>
             <Textarea
               placeholder="0x123...\n0x456..."
               value={formData.whitelistAddresses || ''}
@@ -497,14 +524,14 @@ function BasicDetailsStep({ formData, setFormData, allProjects }: {
         {formData.voterType === 'group' && (
           <div className="mt-2">
             <Label>Chọn nhóm</Label>
-            <Select value={formData.groupId || ''} onValueChange={groupId => setFormData({ ...formData, groupId })}>
+            <Select value={formData.groupId || ''} onValueChange={(groupId: string) => setFormData({ ...formData, groupId })}>
               <SelectTrigger className="w-full rounded-xl mt-1">
-                <SelectValue placeholder="Chọn nhóm" />
+                <SelectValue placeholder="Choose group" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="group1">Nhóm 1</SelectItem>
-                <SelectItem value="group2">Nhóm 2</SelectItem>
-                <SelectItem value="group3">Nhóm 3</SelectItem>
+                <SelectItem value="group1">Group 1</SelectItem>
+                <SelectItem value="group2">Group 2</SelectItem>
+                <SelectItem value="group3">Group 3</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -513,10 +540,10 @@ function BasicDetailsStep({ formData, setFormData, allProjects }: {
 
       {/* Loại Proposal */}
       <div>
-        <Label>Loại Proposal</Label>
-        <Select value={formData.proposalType || ''} onValueChange={proposalType => setFormData({ ...formData, proposalType: proposalType as any })}>
+        <Label>Proposal type</Label>
+  <Select value={formData.proposalType || ''} onValueChange={(proposalType: string) => setFormData({ ...formData, proposalType: proposalType as any })}>
           <SelectTrigger className="w-full rounded-xl mt-1">
-            <SelectValue placeholder="Chọn loại proposal" />
+            <SelectValue placeholder="Choose proposal type" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="general">General</SelectItem>
@@ -529,7 +556,7 @@ function BasicDetailsStep({ formData, setFormData, allProjects }: {
           <div className="mt-2">
             <Label>Treasury Address</Label>
             <Input
-              placeholder="Nhập treasury address..."
+              placeholder="Input treasury address..."
               value={formData.treasuryAddress || ''}
               onChange={e => setFormData({ ...formData, treasuryAddress: e.target.value })}
               className="rounded-xl"
@@ -811,7 +838,7 @@ function PrivacySettingsStep({ formData, setFormData }: {
                     <Label className="text-sm">Reveal Threshold: {formData.revealThreshold}%</Label>
                     <Slider
                       value={[formData.revealThreshold]}
-                      onValueChange={([value]) => setFormData({...formData, revealThreshold: value})}
+                      onValueChange={([value]: [number]) => setFormData({...formData, revealThreshold: value})}
                       max={100}
                       min={25}
                       step={5}
@@ -843,7 +870,7 @@ function PrivacySettingsStep({ formData, setFormData }: {
             </div>
             <Switch
               checked={formData.allowDiscussion}
-              onCheckedChange={(checked) => setFormData({...formData, allowDiscussion: checked})}
+              onCheckedChange={(checked: boolean) => setFormData({...formData, allowDiscussion: checked})}
             />
           </div>
         </div>
