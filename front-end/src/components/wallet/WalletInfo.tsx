@@ -4,7 +4,7 @@ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { Separator } from '../ui/separator';
 import { useDAO } from '../DAOProvider';
-import m9Logo from '../assets/f45b2fc73c3a8a5b34e9c23d1b875d47c63c77ca.png';
+import m9Logo from '../assets/m9Logo.png';
 
 export function WalletInfo() {
   const { wallet } = useDAO();

@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { X } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
-import M9Logo from '../assets/9b8c955de5c9045c5e793f1895c5b670b83c42ab.png';
+import M9Logo from '../assets/m9Logo-1.png';
 
 interface DemoNoticeModalProps {
   isOpen: boolean;

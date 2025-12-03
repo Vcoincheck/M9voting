@@ -3,7 +3,7 @@ import { Vote, Zap, ArrowRight, ExternalLink, Lock, Users, BarChart3 } from 'luc
 import { Button } from '../components/ui/button';
 import { AppHeader } from '../components/AppHeader';
 import { DemoNoticeModal } from '../components/DemoNoticeModal';
-import m9Logo from '../assets/f45b2fc73c3a8a5b34e9c23d1b875d47c63c77ca.png';
+import m9Logo from '../assets/m9Logo.png';
 
 import { FeedbackButton } from '../components/FeedbackButton';
 import { useAppNavigation } from '../hooks';

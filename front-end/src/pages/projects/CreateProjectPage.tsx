@@ -11,7 +11,7 @@ import { Label } from '../../components/ui/label';
 import { Alert, AlertDescription } from '../../components/ui/alert';
 import { useDAO } from '../../components/DAOProvider';
 import { toast } from 'sonner@2.0.3';
-import m9Logo from '../../assets/9b8c955de5c9045c5e793f1895c5b670b83c42ab.png';
+import m9Logo from '../../assets/m9Logo-1.png';
 import { useAppNavigation } from '../../hooks';
 
 export function CreateProjectPage() {

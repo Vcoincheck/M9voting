@@ -4,9 +4,9 @@ import { Button } from './ui/button';
 import { Loader2, Eye } from 'lucide-react';
 import { Separator } from './ui/separator';
 import { motion } from 'motion/react';
-import midnightLogo from '../assets/f45b2fc73c3a8a5b34e9c23d1b875d47c63c77ca.png';
-import laceLogo from '../assets/87e267b72fceea58e435c8d1b46f365b52a7e8c8.png';
-import hydraLogo from '../assets/f0811cc8b3fce2e322683f871da8f1e98f43d5e1.png';
+import midnightLogo from '../assets/m9Logo.png';
+import laceLogo from '../assets/laceLogo.png';
+import hydraLogo from '../assets/hydraLogo.png';
 
 interface WalletSelectorProps {
   open: boolean;

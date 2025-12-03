@@ -17,7 +17,7 @@ import { Badge } from './ui/badge';
 import { useDAO } from './DAOProvider';
 import { useIsMobile } from './ui/use-mobile';
 import { useAppNavigation } from '../hooks/useAppNavigation';
-import m9Logo from '../assets/9b8c955de5c9045c5e793f1895c5b670b83c42ab.png';
+import m9Logo from '../assets/m9Logo-1.png';
 
 interface AppSidebarProps {
   currentScreen: string;

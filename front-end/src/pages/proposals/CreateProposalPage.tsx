@@ -11,7 +11,7 @@ import { Switch } from '../../components/ui/switch';
 import { Badge } from '../../components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../components/ui/tooltip';
 import { useDAO } from '../../components/DAOProvider';
-import m9Logo from '../../assets/f45b2fc73c3a8a5b34e9c23d1b875d47c63c77ca.png';
+import m9Logo from '../../assets/m9Logo.png';
 import { useAppNavigation } from '../../hooks';
 
 type Step = 1 | 2 | 3 | 4;

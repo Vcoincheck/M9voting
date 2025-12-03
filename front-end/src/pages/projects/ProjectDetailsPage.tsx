@@ -9,8 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/ca
 import { Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { useDAO } from '../../components/DAOProvider';
 import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
-import vietCardanoLogo from '../../assets/f9fb9d7e6a371661d7790f3c05ed29936615536c.png';
-import vtechcomLogo from '../../assets/19e3ee003cfb6111a0a470c6e8c25bdf3d23526d.png';
+import vietCardanoLogo from '../../assets/vietCardanoLogo.png';
+import vtechcomLogo from '../../assets/vtechcomLogo.png';
 import { useAppNavigation } from '../../hooks';
 
 // Mock activity data for analytics
