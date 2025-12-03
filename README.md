@@ -27,20 +27,6 @@ src/
 └── constants/      # Routes, configuration
 ```
 
-## Tech Stack
-
-React 18 • TypeScript • Vite • React Router 7 • Tailwind CSS • Shadcn/ui
-
-## Routes
-
-| Path | Purpose |
-|------|---------|
-| `/` | Landing page |
-| `/dashboard` | Main dashboard |
-| `/proposal-list` | Proposals |
-| `/projects-community` | Projects |
-| `/settings` | User settings |
-
 ## Key Features
 
 - Privacy-enhanced voting with ZK proofs
