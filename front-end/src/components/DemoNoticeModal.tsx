@@ -2,7 +2,7 @@
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { X } from 'lucide-react';
-import { useTheme } from './ThemeProvider';
+import { useTheme } from './context/ThemeProvider';
 import M9Logo from '../assets/m9Logo-1.png';
 
 interface DemoNoticeModalProps {

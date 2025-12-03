@@ -10,7 +10,7 @@ import { Slider } from '../../components/ui/slider';
 import { Switch } from '../../components/ui/switch';
 import { Badge } from '../../components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../components/ui/tooltip';
-import { useDAO } from '../../components/DAOProvider';
+import { useDAO } from '../../components/context';
 import m9Logo from '../../assets/m9Logo.png';
 import { useAppNavigation } from '../../hooks';
 

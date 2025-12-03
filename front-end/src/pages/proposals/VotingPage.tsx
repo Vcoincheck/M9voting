@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
 import { Alert, AlertDescription } from '../../components/ui/alert';
-import { useDAO } from '../../components/DAOProvider';
+import { useDAO } from '../../components/context';
 import { motion } from 'motion/react';
 import { toast } from 'sonner@2.0.3';
 import { useParams } from 'react-router-dom';

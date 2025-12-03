@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/ta
 import { Progress } from '../../components/ui/progress';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { useDAO } from '../../components/DAOProvider';
+import { useDAO } from '../../components/context';
 import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import vietCardanoLogo from '../../assets/vietCardanoLogo.png';
 import vtechcomLogo from '../../assets/vtechcomLogo.png';

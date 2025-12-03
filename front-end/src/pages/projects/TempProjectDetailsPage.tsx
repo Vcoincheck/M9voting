@@ -3,7 +3,7 @@ import { ArrowLeft, Users, Vote, Eye, Calendar, Globe, Lock, ExternalLink, Messa
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
-import { useDAO } from '../../components/DAOProvider';
+import { useDAO } from '../../components/context';
 import { useAppNavigation } from '../../hooks';
 
 export function TempProjectDetailsPage() {

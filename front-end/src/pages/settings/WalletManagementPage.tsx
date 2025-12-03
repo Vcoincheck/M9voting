@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowLeft, Shield, AlertTriangle } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Alert, AlertDescription } from '../../components/ui/alert';
-import { useDAO } from '../../components/DAOProvider';
+import { useDAO } from '../../components/context';
 import { WalletInfo } from '../../components/wallet/WalletInfo';
 import { SessionInfo } from '../../components/wallet/SessionInfo';
 import { PrivacyFeatures } from '../../components/wallet/PrivacyFeatures';

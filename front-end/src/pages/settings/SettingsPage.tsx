@@ -22,8 +22,8 @@ import { Switch } from '../../components/ui/switch';
 import { Label } from '../../components/ui/label';
 import { Input } from '../../components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
-import { useDAO } from '../../components/DAOProvider';
-import { ThemeToggle } from '../../components/ThemeProvider';
+import { useDAO } from '../../components/context';
+import { ThemeToggle } from '../../components/context';
 import { toast } from 'sonner@2.0.3';
 import { useAppNavigation } from '../../hooks';
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from './components/ThemeProvider';
-import { DAOProvider } from './components/DAOProvider';
+import { ThemeProvider, DAOProvider } from './components/context';
 import { Toaster } from './components/ui/sonner';
 import { AppRouter } from './routes';
 import { RouteDebugger } from './test/RouteDebugger';

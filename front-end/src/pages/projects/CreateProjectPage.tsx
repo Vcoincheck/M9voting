@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from '../../components/ui/radio-group';
 import { Checkbox } from '../../components/ui/checkbox';
 import { Label } from '../../components/ui/label';
 import { Alert, AlertDescription } from '../../components/ui/alert';
-import { useDAO } from '../../components/DAOProvider';
+import { useDAO } from '../../components/context';
 import { toast } from 'sonner@2.0.3';
 import m9Logo from '../../assets/m9Logo-1.png';
 import { useAppNavigation } from '../../hooks';

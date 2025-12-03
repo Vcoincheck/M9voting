@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { Vote, Zap, ArrowRight, ExternalLink, Lock, Users, BarChart3 } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import { AppHeader } from '../components/AppHeader';
+import { AppHeader } from '../components/layout';
 import { DemoNoticeModal } from '../components/DemoNoticeModal';
 import m9Logo from '../assets/m9Logo.png';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Plus, FileText, CheckCircle, Users, TrendingUp, Book, FolderPlus } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { useDAO } from './DAOProvider';
+import { useDAO } from './context';
 
 interface DashboardContentProps {
   onCreateProposal: () => void;

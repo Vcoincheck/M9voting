@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Badge } from '../../components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
-import { useDAO } from '../../components/DAOProvider';
+import { useDAO } from '../../components/context';
 import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import { toast } from 'sonner@2.0.3';
 import vietCardanoLogo from '../../assets/vietCardanoLogo.png';

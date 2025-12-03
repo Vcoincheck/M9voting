@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
 import { Progress } from '../../components/ui/progress';
 import { Separator } from '../../components/ui/separator';
-import { useDAO, Proposal } from '../../components/DAOProvider';
+import { useDAO, Proposal } from '../../components/context';
 import { useParams } from 'react-router-dom';
 import { useAppNavigation } from '../../hooks';
 

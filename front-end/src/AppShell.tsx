@@ -1,9 +1,8 @@
 import React from 'react';
-import { AppSidebar } from './components/AppSidebar';
-import { AppHeader } from './components/AppHeader';
+import { AppSidebar, AppHeader } from './components/layout';
 import { FeedbackButton } from './components/FeedbackButton';
-import { useDAO } from './components/DAOProvider';
-import { AuthDialogs } from './components/AuthDialogs';
+import { useDAO } from './components/context';
+import { AuthDialogs } from './components/auth';
 
 interface AppShellProps {
   children: React.ReactNode;

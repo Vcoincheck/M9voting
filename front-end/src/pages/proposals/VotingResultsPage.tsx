@@ -6,7 +6,7 @@ import { Progress } from '../../components/ui/progress';
 import { Separator } from '../../components/ui/separator';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../../components/ui/dialog';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { useDAO } from '../../components/DAOProvider';
+import { useDAO } from '../../components/context';
 import { useParams } from 'react-router-dom';
 import { useAppNavigation } from '../../hooks';
 
