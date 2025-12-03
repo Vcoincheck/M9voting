@@ -1,8 +1,75 @@
 
   
-  ## Running the code
+  # M9 Privacy Voting
 
-  Run `npm i` to install the dependencies.
+Privacy-focused DAO governance platform with zero-knowledge proof support. Built with React + TypeScript + Vite.
 
-  Run `npm run dev` to start the development server.
+## Setup
+
+```bash
+npm install
+npm run dev      # Development: http://localhost:3000
+npm run build    # Production build
+```
+
+## Architecture
+
+```
+src/
+├── components/     # UI components + context providers
+│   ├── layout/     # AppHeader, AppSidebar
+│   ├── auth/       # Authentication dialogs
+│   ├── context/    # DAOProvider, ThemeProvider
+│   └── ui/         # Shadcn/ui components
+├── pages/          # Feature pages
+├── routes/         # Routing config
+├── hooks/          # Custom hooks
+└── constants/      # Routes, configuration
+```
+
+## Tech Stack
+
+React 18 • TypeScript • Vite • React Router 7 • Tailwind CSS • Shadcn/ui
+
+## Routes
+
+| Path | Purpose |
+|------|---------|
+| `/` | Landing page |
+| `/dashboard` | Main dashboard |
+| `/proposal-list` | Proposals |
+| `/projects-community` | Projects |
+| `/settings` | User settings |
+
+## Key Features
+
+- Privacy-enhanced voting with ZK proofs
+- DAO governance & proposal management
+- Multi-wallet support (Midnight, Lace, Hydra)
+- Dark/light theme support
+- Responsive UI (mobile & desktop)
+
+## Development
+
+### Navigation
+
+```tsx
+const nav = useAppNavigation();
+nav.toDashboard();
+nav.goBack();
+```
+
+### Add Routes
+
+1. Define in `src/constants/routes.ts`
+2. Create page in `src/pages/[feature]/`
+3. Update `src/routes/routeConfig.ts`
+
+## Browser Support
+
+Chrome/Edge 90+, Firefox 88+, Safari 15+
+
+## License
+
+MIT
   
